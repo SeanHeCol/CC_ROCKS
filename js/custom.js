@@ -46,7 +46,7 @@
             });
             },
             error:function(data){
-                //window.location.href = "./404.html";
+                window.location.href = "./404.html";
             }
 
             
