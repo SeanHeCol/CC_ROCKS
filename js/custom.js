@@ -33,14 +33,17 @@
                 });
                 AWS.config.credentials.refresh(function(error){
                 var credentials = AWS.config.credentials['data']['Credentials'];
-                userID = credentials['AccessKeyId'];
-                var apigClient = apigClientFactory.newClient({
+                userID = AWS.config.credentials['data']['IdentityId'];
+                localStorage.setItem('UserId',UserId);
+                CD = {
                     accessKey: credentials['AccessKeyId'],
                     secretKey: credentials['SecretKey'],
                     sessionToken: credentials['SessionToken'],
                     region: 'us-east-1'
-                });
-                console.log(credentials)
+                }
+                localStorage.setItem('CD',CD);
+                var apigClient = apigClientFactory.newClient(CD);
+                //console.log(credentials)
                 apigClient.movierecPost({},{"message":"hi, jason", "userID":userID},{});
                 
             });
