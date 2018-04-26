@@ -1,5 +1,5 @@
 $(function(){
-	UserId = localStorage.getItem('UserId');
+	UserId = localStorage.getItem('userId');
 	CD =localStorage.getItem("CD")
 	if (UserId == null || CD == null){
 		window.location.href = "./404.html";

@@ -33,8 +33,8 @@
                 });
                 AWS.config.credentials.refresh(function(error){
                 var credentials = AWS.config.credentials['data']['Credentials'];
-                userID = AWS.config.credentials['data']['IdentityId'];
-                localStorage.setItem('UserId',UserId);
+                userId = AWS.config.credentials['data']['IdentityId'];
+                localStorage.setItem('userId',userId);
                 CD = {
                     accessKey: credentials['AccessKeyId'],
                     secretKey: credentials['SecretKey'],
@@ -44,7 +44,7 @@
                 localStorage.setItem('CD',CD);
                 var apigClient = apigClientFactory.newClient(CD);
                 //console.log(credentials)
-                apigClient.movierecPost({},{"message":"hi, jason", "userID":userID},{});
+                //apigClient.movierecPost({},{"message":"hi, jason", "userID":userID},{});
                 
             });
             },
