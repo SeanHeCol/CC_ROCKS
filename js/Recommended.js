@@ -8,6 +8,7 @@ $(function(){
 	apigClient.movierecPost({},{"userID":userID},{}).then(function(res){
 		data = res.data
 		console.log(data);
+		
 	});
                 
             
