@@ -9,13 +9,14 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.205.0.min.js"></script>
     <script type="text/javascript" src="apiGateway-js-sdk/lib/axios/dist/axios.standalone.js"></script>
@@ -29,6 +30,8 @@
     <script type="text/javascript" src="apiGateway-js-sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
     <script type="text/javascript" src="apiGateway-js-sdk/lib/apiGatewayCore/utils.js"></script>
     <script type="text/javascript" src="apiGateway-js-sdk/apigClient.js"></script>
+    <script type='text/javascript' src='js/jquery.js'></script>
+    <script type='text/javascript' src='js/jquery-3.3.1.min.js'></script>
 </head>
 <body>
 <header class="site-header">
@@ -53,9 +56,9 @@
     </div><!-- .site-branding -->
 
     <ul class="main-menu flex flex-column justify-content-center">
-        <li class="current-menu-item"><a href="index.html">Popular</a></li>
-        <li><a href="Recommended.html">Recommended</a></li>
-        <li><a href="blog.html">Liked</a></li>
+        <li ><a href="index.html">Popular</a></li>
+        <li class="current-menu-item"><a href="Recommended.html">Recommended</a></li>
+        <li><a href="Liked.html">Liked</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
     </ul>
@@ -81,10 +84,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <div class="outer-container">
     <div class="container portfolio-page">
         <div class="row">
-            <div class="col">
+            <div class="col col-md-offset-4">
                 <ul class="breadcrumbs flex align-items-center">
-                    <li><a href="#">Home</a></li>
-                    <li>Portfolio</li>
+                    <li><a href="index.html">Home</a></li>
+                    <li>Recommended</li>
                 </ul><!-- .breadcrumbs -->
             </div><!-- .col -->
         </div><!-- .row -->
@@ -369,8 +372,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div><!-- .scroll-down -->
     </div><!-- .container -->
 </div><!-- .outer-container -->
-<script type='text/javascript' src='js/jquery.js'></script>
-<script type='text/javascript' src='js/jquery-3.3.1.min.js'></script>
+
 <script type='text/javascript' src='js/Recommended.js'></script>
 <script type='text/javascript' src='js/click.js'></script>
 

@@ -14,7 +14,7 @@ $(function(){
     function render_normal(images,tmdb,titles){
 
 		
-		html = '<div class="row"><div class="col"><ul class="breadcrumbs flex align-items-center"><li><a href="index.html">Home</a></li><li>Recommended</li></ul></div></div>'
+		html = '<div class="row"><div class="col"><ul class="breadcrumbs flex align-items-center"><li><a href="index.html">Home</a></li><li>search</li></ul></div></div>'
 		html += '<div class="row pl-5">';
 		for(i = 0; i < images.length; i++){
 			html+= '<div class=".col-3 .col-md-3 col-lg-3 pl-2 pr-2 pt-2 pb-2">'+
@@ -36,16 +36,10 @@ $(function(){
             '</div><!-- .col -->'	
 		}
 		html += '</div>';
-		$(".portfolio-page").html(html);
+		$(".result").html(html);
 	}
 
-
-
-
-
-	var fileName = location.href.split("/").slice(-1); 
-	name = fileName[0].split(".")[0];
-	if (name == "Recommended"){
+	$("button").click(function(){
 		images = ['http://image.tmdb.org/t/p/w780/uMZqKhT4YA6mqo2yczoznv7IDmv.jpg',
 		 'http://image.tmdb.org/t/p/w780/vgpXmVaVyUL7GGiDeiK1mKEKzcX.jpg',
 		 'http://image.tmdb.org/t/p/w780/6ksm1sjKMFLbO7UY2i6G1ju9SML.jpg',
@@ -73,7 +67,12 @@ $(function(){
 			 'Dracula: Dead and Loving It (1995)'];
 		render_normal(images,tmdbids,titles);
 
-	}    
+	});
+
+
+
+	
+	    
 	$(".glyphicon-heart").click(function(event){
 		event.preventDefault();
 		//movieId = 

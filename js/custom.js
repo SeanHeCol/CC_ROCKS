@@ -3,6 +3,13 @@
     //'use strict';
     var urlParams = new URLSearchParams(window.location.search);
     code = urlParams.get("code")
+    CD = localStorage.getItem('CD');
+    
+
+    if(code == null && CD == null){
+        window.location.href = "./404.html";
+    }
+    //var apigClient = apigClientFactory.newClient(CD);
     requestbody = "grant_type=authorization_code&code="+code+"&redirect_uri=https://s3.amazonaws.com/movie-recommendation/index.html"
     $.ajax({
             url:"https://chatbox.auth.us-east-1.amazoncognito.com/oauth2/token",
@@ -55,17 +62,5 @@
             
     });
     // Main Navigation
-    $( '.hamburger-menu' ).on( 'click', function() {
-        $(this).toggleClass('close');
-        $('.site-branding').toggleClass('hide');
-        $('.site-navigation').toggleClass('show');
-        $('.site-header').toggleClass('no-shadow');
-    });
-
-    // Scroll to Next Section
-    $( '.scroll-down' ).click(function() {
-        $( 'html, body' ).animate({
-            scrollTop: $( '.scroll-down' ).offset().top + 100
-        }, 800 );
-    });
+    
 })(jQuery);
