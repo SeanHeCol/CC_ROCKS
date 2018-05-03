@@ -29,13 +29,6 @@ $(function(){
 		}
 		html += '</div>';
 		$(".container-fluid").html(html);
-	}
-	userId = localStorage.getItem('userId');
-	url = "https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/getliked"
-	$.post(url, JSON.stringify({"userId":userId}),function(data){
-		//console.log(data);
-		obj = JSON.parse(data);
-		render(obj["images"],obj["tmdbids"],obj["titles"],obj["likes"]);
 		$(".glyphicon-heart").click(function(event){
 			event.preventDefault();
 			//movieId = 
@@ -51,13 +44,34 @@ $(function(){
 				$(this).css("color","rgb(128, 128, 128)");
 				like_event(userId,movieId);
 			}
+			idx = tmdbids.indexOf(movieId);
+			tmdbids.splice(idx, 1);
+			images.splice(idx,1);
+			titles.splice(idx,1);
+			likes.splice(idx,1);
+			render(images,tmdbids,titles,likes);
 		});
+	}
+	userId = localStorage.getItem('userId');
+	url = "https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/getliked"
+	$.post(url, JSON.stringify({"userId":userId}),function(data){
+		//console.log(data);
+		obj = JSON.parse(data);
+		images = obj["images"]
+		tmdbids = obj["tmdbids"]
+		titles = obj["titles"]
+		likes = obj['likes'] 
+		render(obj["images"],obj["tmdbids"],obj["titles"],obj["likes"]);
+
+
+
 	});
 
 	function like_event(userId,movieId){
 		url = "https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/like"
 		$.post(url,JSON.stringify({"userId":userId,"movieId":movieId}),function(data){
 			console.log(data);
+
 		});
 	}
 
