@@ -12,12 +12,13 @@ $(function(){
 
 	// });
 
-    function render_normal(images,tmdb,titles){
+    function render_normal(images,tmdb,titles,likes){
 
 		
 		html = '<div class="row"><div class="col"><ul class="breadcrumbs flex align-items-center"><li><a href="index.html">Home</a></li><li>search</li></ul></div></div>'
 		html += '<div class="row pl-5">';
 		for(i = 0; i < images.length; i++){
+			color = likes[i] !=true ? 'grey':'#F0437F';
 			html+= '<div class=".col-3 .col-md-3 col-lg-3 pl-2 pr-2 pt-2 pb-2">'+
                 '<div class="portfolio-content">'+
                     '<figure>'+
@@ -31,7 +32,7 @@ $(function(){
                             '<li><a href="#">'+titles[i]+'</a></li>'+
                             '<li><a href="#">Tree</a></li>'+
                         '</ul>'+
-                        '<a href="#"><span style="font-size:3em; color:grey" class="glyphicon glyphicon-heart"></span></a>' +
+                        '<a href="#"><span style="font-size:3em; color:'+color+'" class="glyphicon glyphicon-heart"></span></a>' +
                     	'<a href="review.html?movieId='+ tmdb[i] +'"><span style="font-size:3em; color:grey" class="glyphicon glyphicon-pencil"></span></a>'+
                     '</div><!-- .entry-content -->'+
                 '</div><!-- .portfolio-content -->'+
@@ -40,7 +41,7 @@ $(function(){
 		html += '</div>';
 		$(".result").html(html);
 	}
-
+	userId = localStorage.getItem('userId');
 	$("button").click(function(){
 		search = $("input").val();
 
@@ -50,15 +51,31 @@ $(function(){
 			return
 		}
 		$(".result").html('<div style="height:300px"></div><div class="loader"></div>');
-		$.post("https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/searchbyname",JSON.stringify({"movieName":search}),function(data){
+		$.post("https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/searchbyname",JSON.stringify({"movieName":search,"userId":userId}),function(data){
 			hits = data['hits']["hits"];
-			
+			likes = data['likes']
 			console.log(hits)
 			images = hits.map(hit =>hit['_source']['url'])
 			tmdbids = hits.map(hit =>hit['_source']['tmdbId'])
 			titles = hits.map(hit =>hit['_source']['title'])
 			console.log(images)
-			render_normal(images,tmdbids,titles);
+			render_normal(images,tmdbids,titles,likes);
+			$(".glyphicon-heart").click(function(event){
+				event.preventDefault();
+				//movieId = 
+				url = $(this).parent().parent().find("h3 a").attr("href");
+				movieId = url.split("\/").slice(-1)[0] 
+				console.log(userId,movieId);
+				console.log($(this).parent());
+				if ($(this).css("color") == "rgb(128, 128, 128)"){
+					$(this).css("color","#F0437F");
+					like_event(userId,movieId);
+
+				}else{
+					$(this).css("color","rgb(128, 128, 128)");
+					like_event(userId,movieId);
+				}
+			});
 		})
 		/*
 		images = ['http://image.tmdb.org/t/p/w780/uMZqKhT4YA6mqo2yczoznv7IDmv.jpg',
@@ -89,7 +106,7 @@ $(function(){
 		render_normal(images,tmdbids,titles);
 		*/
 	});
-	userId = localStorage.getItem('userId');
+	
 
 
 	

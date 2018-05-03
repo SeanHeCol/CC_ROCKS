@@ -31,10 +31,11 @@ $(function(){
 
 
 
-
+	userId = localStorage.getItem('userId');
 	var fileName = location.href.split("/").slice(-1); 
 	name = fileName[0].split(".")[0];
 	if (name == "index"){
+		/*
 		images = ['http://image.tmdb.org/t/p/w780/uMZqKhT4YA6mqo2yczoznv7IDmv.jpg',
 		 'http://image.tmdb.org/t/p/w780/vgpXmVaVyUL7GGiDeiK1mKEKzcX.jpg',
 		 'http://image.tmdb.org/t/p/w780/6ksm1sjKMFLbO7UY2i6G1ju9SML.jpg',
@@ -60,8 +61,21 @@ $(function(){
 			 'GoldenEye (1995)',
 			 'American President, The (1995)',
 			 'Dracula: Dead and Loving It (1995)'];
-		likes = [true,true,true,true,true,true,true,true,true,true,true,true]
-		render_normal(images,tmdbids,titles,likes);
+		likes = [true,true,true,true,true,true,true,true,true,true,true,true]*/
+		$(".result").html('<div style="height:300px"></div><div class="loader"></div>');
+		$.post("https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/gethotmovie",JSON.stringify({'userId':userId}),function(data){
+			//console.log(data)
+			data = JSON.parse(data)
+			//console.log(data["images"])
+			images = data["images"];
+			tmdbids = data["tmdbids"];
+			titles = data["titles"];
+			likes = data["likes"];
+			//console.log(images);
+			render_normal(images,tmdbids,titles,likes);	
+
+		})
+		//render_normal(images,tmdbids,titles,likes);
 
 	}
 
