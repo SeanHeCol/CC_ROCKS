@@ -1,8 +1,9 @@
 $(function(){
 
-	function render_normal(images,tmdb,titles){
+	function render_normal(images,tmdb,titles,likes){
 		html = '<div class="row ml-4 pl-5">';
 		for(i = 0; i < images.length; i++){
+			color = likes[i] !=true ? 'grey':'#F0437F';
 			html+= '<div class=".col-3 .col-md-3 col-lg-3 pl-2 pr-2 pt-2 pb-2">'+
                 '<div class="portfolio-content">'+
                     '<figure>'+
@@ -16,6 +17,8 @@ $(function(){
                             '<li><a href="#">'+titles[i]+'</a></li>'+
                             '<li><a href="#">Tree</a></li>'+
                         '</ul>'+
+                        '<a href="#"><span style="font-size:3em; color:'+ color +'" class="glyphicon glyphicon-heart"></span></a>' +
+                    	'<a href="review.html?movieId='+ tmdb[i] +'"><span style="font-size:3em; color:grey" class="glyphicon glyphicon-pencil"></span></a>'+
                     '</div><!-- .entry-content -->'+
                 '</div><!-- .portfolio-content -->'+
             '</div><!-- .col -->'	
@@ -57,9 +60,11 @@ $(function(){
 			 'GoldenEye (1995)',
 			 'American President, The (1995)',
 			 'Dracula: Dead and Loving It (1995)'];
-		render_normal(images,tmdbids,titles);
+		likes = [true,true,true,true,true,true,true,true,true,true,true,true]
+		render_normal(images,tmdbids,titles,likes);
 
 	}
+
 
 
 });

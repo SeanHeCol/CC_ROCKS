@@ -20,7 +20,9 @@ $(function(){
                             '<li><a href="#">'+titles[i]+'</a></li>'+
                             '<li><a href="#">Tree</a></li>'+
                         '</ul>'+
+                        
                         '<a href="#"><span style="font-size:3em; color:'+ color +'" class="glyphicon glyphicon-heart"></span></a>' +
+                    	'<a href="review.html?userId='+ tmdb[i] +'"><span style="font-size:3em; color:grey" class="glyphicon glyphicon-pencil"></span></a>'+
                     '</div><!-- .entry-content -->'+
                 '</div><!-- .portfolio-content -->'+
             '</div><!-- .col -->'	

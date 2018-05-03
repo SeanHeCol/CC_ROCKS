@@ -11,6 +11,7 @@ $(function(){
 	// 	console.log(data);
 
 	// });
+
     function render_normal(images,tmdb,titles){
 
 		
@@ -31,6 +32,7 @@ $(function(){
                             '<li><a href="#">Tree</a></li>'+
                         '</ul>'+
                         '<a href="#"><span style="font-size:3em; color:grey" class="glyphicon glyphicon-heart"></span></a>' +
+                    	'<a href="review.html?movieId='+ tmdb[i] +'"><span style="font-size:3em; color:grey" class="glyphicon glyphicon-pencil"></span></a>'+
                     '</div><!-- .entry-content -->'+
                 '</div><!-- .portfolio-content -->'+
             '</div><!-- .col -->'	
@@ -40,6 +42,25 @@ $(function(){
 	}
 
 	$("button").click(function(){
+		search = $("input").val();
+
+		console.log(search == "");
+		if (search == ""){
+			alert("search can't be empty")
+			return
+		}
+		$(".result").html('<div style="height:300px"></div><div class="loader"></div>');
+		$.post("https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/searchbyname",JSON.stringify({"movieName":search}),function(data){
+			hits = data['hits']["hits"];
+			
+			console.log(hits)
+			images = hits.map(hit =>hit['_source']['url'])
+			tmdbids = hits.map(hit =>hit['_source']['tmdbId'])
+			titles = hits.map(hit =>hit['_source']['title'])
+			console.log(images)
+			render_normal(images,tmdbids,titles);
+		})
+		/*
 		images = ['http://image.tmdb.org/t/p/w780/uMZqKhT4YA6mqo2yczoznv7IDmv.jpg',
 		 'http://image.tmdb.org/t/p/w780/vgpXmVaVyUL7GGiDeiK1mKEKzcX.jpg',
 		 'http://image.tmdb.org/t/p/w780/6ksm1sjKMFLbO7UY2i6G1ju9SML.jpg',
@@ -66,9 +87,9 @@ $(function(){
 			 'American President, The (1995)',
 			 'Dracula: Dead and Loving It (1995)'];
 		render_normal(images,tmdbids,titles);
-
+		*/
 	});
-
+	userId = localStorage.getItem('userId');
 
 
 	
