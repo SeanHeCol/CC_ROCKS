@@ -72,7 +72,32 @@ $(function(){
 			titles = data["titles"];
 			likes = data["likes"];
 			//console.log(images);
-			render_normal(images,tmdbids,titles,likes);	
+			render_normal(images,tmdbids,titles,likes);
+			$(".glyphicon-heart").click(function(event){
+                    event.preventDefault();
+                    //movieId = 
+                    url = $(this).parent().parent().find("h3 a").attr("href");
+                    movieId = url.split("\/").slice(-1)[0] 
+                    console.log(userId,movieId);
+                    console.log($(this).parent());
+                    if ($(this).css("color") == "rgb(128, 128, 128)"){
+                        $(this).css("color","#F0437F");
+                        like_event(userId,movieId);
+
+                    }else{
+                        $(this).css("color","rgb(128, 128, 128)");
+                        like_event(userId,movieId);
+                    }
+                });
+
+
+                
+                function like_event(userId,movieId){
+                    url = "https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/like"
+                    $.post(url,JSON.stringify({"userId":userId,"movieId":movieId}),function(data){
+                        console.log(data);
+                    });
+                }	
 
 		})
 		//render_normal(images,tmdbids,titles,likes);
