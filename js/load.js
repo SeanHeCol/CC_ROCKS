@@ -32,6 +32,9 @@ $(function(){
 
 
 	userId = localStorage.getItem('userId');
+	if (userId == null){
+		window.location = "404.html";
+	}
 	var fileName = location.href.split("/").slice(-1); 
 	name = fileName[0].split(".")[0];
 	if (name == "index"){

@@ -53,6 +53,9 @@ $(function(){
 		});
 	}
 	userId = localStorage.getItem('userId');
+	if (userId == null){
+		window.location = "404.html";
+	}
 	url = "https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/getliked"
 	$.post(url, JSON.stringify({"userId":userId}),function(data){
 		//console.log(data);

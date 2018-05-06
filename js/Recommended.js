@@ -11,16 +11,22 @@ $(function(){
 	// 	console.log(data);
 
 	// });
+	if (userId == null){
+		window.location = "404.html";
+	}
     function render_normal(images,tmdb,titles){
 
 		
 		html = '<div class="row"><div class="col"><ul class="breadcrumbs flex align-items-center"><li><a href="index.html">Home</a></li><li>Recommended</li></ul></div></div>'
 		html += '<div class="row pl-5">';
 		for(i = 0; i < images.length; i++){
+			if (images[i] == "no_poster"){
+				continue;
+			}
 			html+= '<div class=".col-3 .col-md-3 col-lg-3 pl-2 pr-2 pt-2 pb-2">'+
                 '<div class="portfolio-content">'+
                     '<figure>'+
-                        '<img src="'+images[i]+'" alt="">'+
+                        '<img alt= "Poster Not available"src="'+images[i]+'" alt="">'+
                     '</figure>'+
 
                     '<div class="entry-content flex flex-column align-items-center justify-content-center">'+
@@ -73,7 +79,18 @@ $(function(){
 			 'GoldenEye (1995)',
 			 'American President, The (1995)',
 			 'Dracula: Dead and Loving It (1995)'];
-		render_normal(images,tmdbids,titles);
+		$(".portfolio-page").html('<div style="height:300px"></div><div class="loader"></div>');
+		$.post("https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/movierec",JSON.stringify({"userId":"Jason"}),function(data){
+			console.log(data);
+			obj = JSON.parse(data);
+			images = obj["images"]
+			tmdbids = obj["tmdbids"]
+			titles = obj["titles"]
+			likes = obj['likes'] 
+			render_normal(obj["images"],obj["tmdbids"],obj["titles"],obj["likes"]);
+
+		})
+		//render_normal(images,tmdbids,titles);
 
 	}    
 	$(".glyphicon-heart").click(function(event){

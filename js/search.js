@@ -42,6 +42,9 @@ $(function(){
 		$(".result").html(html);
 	}
 	userId = localStorage.getItem('userId');
+	if(userId == null){
+		window.location = "404.html";
+	}
 	$("button").click(function(){
 		search = $("input").val();
 
