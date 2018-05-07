@@ -63,6 +63,21 @@ $(function(){
 			titles = hits.map(hit =>hit['_source']['title'])
 			console.log(images)
 			render_normal(images,tmdbids,titles,likes);
+			$(".outLink").click(function(event){
+				event.preventDefault();
+				console.log(1);
+				obj = {"id":1,"mid":2}
+		        item = $($(this).get(0));
+		        id = localStorage.getItem("userId");
+		        mid = item.attr("href").split("/");
+		        mid = mid[mid.length-1];
+		        obj = {"id":id,"mid":mid}
+				$.post("https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/click",JSON.stringify(obj),function(data){
+					console.log(item);
+		            console.log(event);
+		            window.location = item.attr('href');
+				})
+			});
 			$(".glyphicon-heart").click(function(event){
 				event.preventDefault();
 				//movieId = 
@@ -80,37 +95,61 @@ $(function(){
 				}
 			});
 		})
-		/*
-		images = ['http://image.tmdb.org/t/p/w780/uMZqKhT4YA6mqo2yczoznv7IDmv.jpg',
-		 'http://image.tmdb.org/t/p/w780/vgpXmVaVyUL7GGiDeiK1mKEKzcX.jpg',
-		 'http://image.tmdb.org/t/p/w780/6ksm1sjKMFLbO7UY2i6G1ju9SML.jpg',
-		 'http://image.tmdb.org/t/p/w780/eT79mN6LqeDXeLiKwDGmW9Py9Xc.jpg',
-		 'http://image.tmdb.org/t/p/w780/e64sOI48hQXyru7naBFyssKFxVd.jpg',
-		 'http://image.tmdb.org/t/p/w780/zMyfPUelumio3tiDKPffaUpsQTD.jpg',
-		 'http://image.tmdb.org/t/p/w780/jQh15y5YB7bWz1NtffNZmRw0s9D.jpg',
-		 'http://image.tmdb.org/t/p/w780/sGO5Qa55p7wTu7FJcX4H4xIVKvS.jpg',
-		 'http://image.tmdb.org/t/p/w780/eoWvKD60lT95Ss1MYNgVExpo5iU.jpg',
-		 'http://image.tmdb.org/t/p/w780/trtANqAEy9dxRCeIe7YEDVeGkLw.jpg',
-		 'http://image.tmdb.org/t/p/w780/lymPNGLZgPHuqM29rKMGV46ANij.jpg',
-		 'http://image.tmdb.org/t/p/w780/xve4cgfYItnOhtzLYoTwTVy5FGr.jpg'];
-		tmdbids = [862, 8844, 15602, 31357, 11862, 949, 11860, 45325, 9091, 710, 9087, 12110]
-		titles = ['Toy Story (1995)',
-			 'Jumanji (1995)',
-			 'Grumpier Old Men (1995)',
-			 'Waiting to Exhale (1995)',
-			 'Father of the Bride Part II (1995)',
-			 'Heat (1995)',
-			 'Sabrina (1995)',
-			 'Tom and Huck (1995)',
-			 'Sudden Death (1995)',
-			 'GoldenEye (1995)',
-			 'American President, The (1995)',
-			 'Dracula: Dead and Loving It (1995)'];
-		render_normal(images,tmdbids,titles);
-		*/
 	});
-	
 
+	$(document).keypress(function(e){
+		if(e.which == 13) {
+		search = $("input").val();
+
+		console.log(search == "");
+		if (search == ""){
+			alert("search can't be empty")
+			return
+		}
+		$(".result").html('<div style="height:300px"></div><div class="loader"></div>');
+		$.post("https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/searchbyname",JSON.stringify({"movieName":search,"userId":userId}),function(data){
+			hits = data['hits']["hits"];
+			likes = data['likes']
+			console.log(hits)
+			images = hits.map(hit =>hit['_source']['url'])
+			tmdbids = hits.map(hit =>hit['_source']['tmdbId'])
+			titles = hits.map(hit =>hit['_source']['title'])
+			console.log(images)
+			render_normal(images,tmdbids,titles,likes);
+			$(".outLink").click(function(event){
+				event.preventDefault();
+				console.log(1);
+				obj = {"id":1,"mid":2}
+		        item = $($(this).get(0));
+		        id = localStorage.getItem("userId");
+		        mid = item.attr("href").split("/");
+		        mid = mid[mid.length-1];
+		        obj = {"id":id,"mid":mid}
+				$.post("https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/click",JSON.stringify(obj),function(data){
+					console.log(item);
+		            console.log(event);
+		            window.location = item.attr('href');
+				})
+			});
+			$(".glyphicon-heart").click(function(event){
+				event.preventDefault();
+				//movieId = 
+				url = $(this).parent().parent().find("h3 a").attr("href");
+				movieId = url.split("\/").slice(-1)[0] 
+				console.log(userId,movieId);
+				console.log($(this).parent());
+				if ($(this).css("color") == "rgb(128, 128, 128)"){
+					$(this).css("color","#F0437F");
+					like_event(userId,movieId);
+
+				}else{
+					$(this).css("color","rgb(128, 128, 128)");
+					like_event(userId,movieId);
+				}
+			});
+		})
+	}
+	});
 
 	
 	    

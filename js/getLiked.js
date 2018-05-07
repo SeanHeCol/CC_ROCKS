@@ -50,6 +50,21 @@ $(function(){
 			titles.splice(idx,1);
 			likes.splice(idx,1);
 			render(images,tmdbids,titles,likes);
+			$(".outLink").click(function(event){
+				event.preventDefault();
+				console.log(1);
+				obj = {"id":1,"mid":2}
+		        item = $($(this).get(0));
+		        id = localStorage.getItem("userId");
+		        mid = item.attr("href").split("/");
+		        mid = mid[mid.length-1];
+		        obj = {"id":id,"mid":mid}
+				$.post("https://myi5wf5oi6.execute-api.us-east-1.amazonaws.com/beta/click",JSON.stringify(obj),function(data){
+					console.log(item);
+		            console.log(event);
+		            window.location = item.attr('href');
+				})
+			});
 		});
 	}
 	userId = localStorage.getItem('userId');
