@@ -1,1 +1,2 @@
-# CC_sucks_a_lot
+# CC_ROCKS
+A web application for movie recommendation.
