@@ -17,7 +17,7 @@ service = 'es'
 awsauth = AWS4Auth(AWS_ACCESS_KEY, AWS_SECRET_KEY, region, service)
 
 # host = ""
-host = "https://search-cc-es-mw36tntjqmv3pqo3rejs6upzpy.us-east-1.es.amazonaws.com/"
+host = ""
 path = 'predictions'
 url = host + path
 
