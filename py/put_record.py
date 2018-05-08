@@ -6,8 +6,8 @@ import json
 client = boto3.client(
     'dynamodb',
     region_name='us-east-1', 
-    aws_access_key_id='AKIAJMQQ2UB7M7X4HDMQ',
-    aws_secret_access_key='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',
+    aws_access_key_id='',
+    aws_secret_access_key='',
 )
 # Business ID, Name, Address, Coordinates, Number of Reviews, Rating, Zip Code
 """all_res = pickle.load(open("raw_data.pickle",'rb'))
